@@ -5,6 +5,7 @@
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
 import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
+import { AngularHandler } from '../handlers/angular';
 
 import * as path from 'path';
 import * as morgan from 'morgan';
@@ -47,12 +48,11 @@ const engineOptions: EngineCreateOptions = {
   ]
 } 
 
-createServer(4000, routes, policies, null, '*', null, headers, createEngine(engineOptions))
-.do(fr => console.log(fr.route))
+createServer(4000, routes, policies, true, undefined, undefined, undefined, headers, createEngine(engineOptions))
+.map(r => r.redirect ? Object.assign(r, {route: Object.assign(r.route, {handler: AngularHandler.ngApp})}) : r)
 .subscribe((fr: FinalRequestObject) => {
     RequestHandler.handle(fr);
 });
-
 
 /*
 //

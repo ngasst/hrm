@@ -54,7 +54,7 @@ export var clientConfig = {
   target: 'web',
   entry: './src/client',
   output: {
-    path: root('dist/client')
+    path: root('assets')
   },
   node: {
     global: true,
