@@ -17,12 +17,28 @@ export class AngularHandler {
     }
 
     static returnData(req: Request, res: Response) {
-        let data: any[] = [
-  { id: 0, value: 'finish example', created_at: new Date(), completed: false },
-  { id: 1, value: 'add tests',      created_at: new Date(), completed: false },
-  { id: 2, value: 'include development environment', created_at: new Date(), completed: false },
-  { id: 3, value: 'include production environment',  created_at: new Date(), completed: false }
-];
-        res.json(data);
+        let path: string = join(process.cwd(), 'assets', 'sandbox.json');
+        console.log('data file path', path);
+        readJSON(path, (err, json) => {
+            if (err) {
+                res.error.server();
+            }
+            let initialData: any[] = json
+            .filter(d => !d.isEmpty)
+            .sort((a, b) => {
+                if (a.name.toUpperCase() < b.name.toUpperCase())
+                    return -1;
+                if (a.name.toUpperCase() > b.name.toUpperCase())
+                    return 1;
+                return 0;
+            })
+            .filter((d, i) => i < 200);
+            res.json(initialData);
+        });
+    }
+
+    static returnLazyBundle(req: Request, res: Response) {
+        let path: string = join(process.cwd(), 'assets', '0.bundle.js');
+        res.sendFile(path, 'text/javascript');
     }
 }

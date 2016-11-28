@@ -3,9 +3,9 @@ import { MainHandler } from '../handlers/main';
 
 export const routes: Route[] = [
     {
-        path: '/api',
+        path: '/api/search/:term',
         verb: 'GET',
-        handler: MainHandler.main,
+        handler: MainHandler.search,
         policies: ['main']
     }
 ]

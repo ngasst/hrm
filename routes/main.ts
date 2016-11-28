@@ -9,9 +9,15 @@ export const routes: Route[] = [
         policies: ['main']
     },
     {
-        path: '/data.json',
+        path: '/data',
         verb: 'GET',
         handler: AngularHandler.returnData,
+        policies: ['main']
+    },
+    {
+        path: '/lazy',
+        verb: 'GET',
+        handler: AngularHandler.returnLazyBundle,
         policies: ['main']
     }
 ]

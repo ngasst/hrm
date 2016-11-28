@@ -50,6 +50,8 @@ const engineOptions: EngineCreateOptions = {
 
 createServer(4000, routes, policies, true, undefined, undefined, undefined, headers, createEngine(engineOptions))
 .map(r => r.redirect ? Object.assign(r, {route: Object.assign(r.route, {handler: AngularHandler.ngApp})}) : r)
+.retry(3)
+.onErrorResumeNext()
 .subscribe((fr: FinalRequestObject) => {
     RequestHandler.handle(fr);
 });

@@ -1,0 +1,45 @@
+$even: lighten(#b0c4de, 30);
+$odd: lighten(#b0c4de, 20);
+table.table-list {
+    width: 100%;
+    thead {
+        tr {
+            background-color: lightsteelblue;
+            font-size: 14pt;
+            padding: 10px 0;
+            color: darken(lightsteelblue, 50);
+        }
+    }
+
+
+    tbody {
+        tr {
+            vertical-align: top;
+            tr:nth-child(odd) {
+                background-color: $odd;
+            }
+
+            tr:nth-child(even) {
+                background-color: $even;
+            }
+
+            li {
+                :nth-child(odd) {
+                background-color: $odd;
+            }
+
+                :nth-child(even) {
+                    background-color: $even;
+                }
+            }
+
+        }
+
+
+
+    }
+
+    tfoot {
+
+    }
+}

@@ -1,0 +1,19 @@
+.home {
+    .search-container {
+        display: flex;
+        align-content: space-around;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 100px;
+        .search-table-name {
+            flex-direction: column;
+
+        }
+
+        .search-field-name {
+            flex-direction: column;
+
+        }
+    }
+}

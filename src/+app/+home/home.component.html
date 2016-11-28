@@ -1,6 +1,28 @@
 <div class="home">
-  Home component
-  <strong>Async data call return value:</strong>
-  <pre>{{ data | json }}</pre>
-  <blockquote>{{ data.data }}</blockquote>
+  <h4>Sandbox Tables <small>(displaying {{data.length}} tables)</small></h4>
+  <div class="search-container">
+    <div class="search-table-name">
+      <label for="">Search By Table Name</label>
+      <input type="text" [formControl]="tn">
+    </div>
+    <div class="search-field-name">
+      <label for="">Search By Field Name</label>
+      <input type="text" (keyup)="searchFieldName($event)">
+    </div>
+    <div class="filter">
+      <label for="">Alphabetic Order</label>
+      <input type="radio">
+      <label for="">Tables With Most Rows First</label>
+      <input type="radio">
+      <label for="">Show Empty Tables</label>
+      <input type="checkbox">
+    </div>
+  </div>
+  <div class="tables-container">
+    <div class="tables-header"></div>
+    <div class="tables-body">
+      <tables [data]="data | async"></tables> 
+    </div>
+  </div>
+
 </div>
