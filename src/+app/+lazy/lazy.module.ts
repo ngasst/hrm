@@ -14,3 +14,4 @@ import { LazyRoutingModule } from './lazy-routing.module';
   ]
 })
 export class LazyModule { }
+

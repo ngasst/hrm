@@ -28,7 +28,7 @@ export class XLargeDirective {
     nav { background:#333; min-height:40px; border-bottom:5px #777 solid; }
     nav a { font-weight:bold; text-decoration:none; color:#fff; padding:20px; display:inline-block; }
     nav a:hover { background:#555; }
-    .hero-universal { min-height:500px; display:block; padding:20px; background: url('/assets/logo.jpg') no-repeat center center; }
+    .hero-universal { min-height:500px; display:block; padding:20px; background: url('/logo.jpg') no-repeat center center; }
     .inner-hero { background: rgba(255, 255, 255, 0.75); border:5px #ccc solid; padding:25px; }
     .router-link-active { background-color: #555; }
     main { padding:20px 0; }

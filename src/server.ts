@@ -34,9 +34,9 @@ const ROOT = path.join(path.resolve(__dirname, '..'));
 const headers: Header[] = [
   {
     key: 'Cache-Control',
-    value: 'max-age=60'
+    value: 'max-age=5'
   }
-]
+];
 
 const engineOptions: EngineCreateOptions = {
   ngModule: MainModule,
@@ -55,6 +55,7 @@ createServer(4000, routes, policies, true, undefined, undefined, undefined, head
 .subscribe((fr: FinalRequestObject) => {
     RequestHandler.handle(fr);
 });
+
 
 /*
 //

@@ -73,6 +73,10 @@
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/@angular/upgrade/-/upgrade-2.2.2.tgz#4a5969cac8ef32149ed97dfbeaff0d6aaf2cfdf3"
 
+"@angularclass/bootloader@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@angularclass/bootloader/-/bootloader-1.0.1.tgz#75de7cf3901b445900a419c2aeca44181d465060"
+
 "@ngtools/webpack":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.1.6.tgz#bf28a7e7e4e9e9f23a2225985ac1a658e0653ac8"

@@ -5,6 +5,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/share';
 
 
 
@@ -26,10 +27,11 @@ export class TableService {
       });
   }
 
-  search(term: string, options?: any) {
-      let url: string = `/api/search/${term}`;
-      return this._http.get(url)
+  search(term: SearchObject, options?: any) {
+      let url: string = `/api/search`;
+      return this._http.post(url, term)
         .map( res => res.json())
+        .do(r => console.log(r))
         .toPromise()
         .catch(err => {
             console.log('Error ', err);
@@ -37,4 +39,11 @@ export class TableService {
         });
   }
 
+}
+
+export interface SearchObject {
+  tname: string;
+  fname: string;
+  sorta: boolean;
+  showEmpty: boolean;
 }

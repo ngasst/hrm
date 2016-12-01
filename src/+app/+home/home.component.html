@@ -1,5 +1,5 @@
 <div class="home">
-  <h4>Sandbox Tables <small>(displaying {{data.length}} tables)</small></h4>
+  <h4>Sandbox Tables <small>(displaying {{data.length | async}} tables)</small></h4>
   <div class="search-container">
     <div class="search-table-name">
       <label for="">Search By Table Name</label>
@@ -7,21 +7,21 @@
     </div>
     <div class="search-field-name">
       <label for="">Search By Field Name</label>
-      <input type="text" (keyup)="searchFieldName($event)">
+      <input type="text" [formControl]="fn">
     </div>
     <div class="filter">
-      <label for="">Alphabetic Order</label>
-      <input type="radio">
-      <label for="">Tables With Most Rows First</label>
-      <input type="radio">
-      <label for="">Show Empty Tables</label>
-      <input type="checkbox">
+      <form action="">
+        <input type="radio" [formControl]="sort" value="true" [checked]="sort.value === true"> Alphabetic Order
+        <input type="radio" [formControl]="sort" value="false" [checked]="sort.value === false"> Tables With Most Rows First
+        <input type="checkbox" [formControl]="empty" value="true" [checked]="empty.value === true"> Show Empty Tables
+      </form>
     </div>
   </div>
+  {{tdata|json}}
   <div class="tables-container">
     <div class="tables-header"></div>
     <div class="tables-body">
-      <tables [data]="data | async"></tables> 
+      <tables [data]="data | async"></tables>
     </div>
   </div>
 
