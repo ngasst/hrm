@@ -31,7 +31,7 @@ export class TableService {
       let url: string = `/api/search`;
       return this._http.post(url, term)
         .map( res => res.json())
-        .do(r => console.log(r))
+        //.do(r => console.log(r))
         .toPromise()
         .catch(err => {
             console.log('Error ', err);

@@ -77,6 +77,10 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@angularclass/bootloader/-/bootloader-1.0.1.tgz#75de7cf3901b445900a419c2aeca44181d465060"
 
+"@angularclass/idle-preload@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@angularclass/idle-preload/-/idle-preload-1.0.4.tgz#41eeea532cc4998167c825f6dca62cb98f4b7028"
+
 "@ngtools/webpack":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.1.6.tgz#bf28a7e7e4e9e9f23a2225985ac1a658e0653ac8"
@@ -1288,7 +1292,7 @@ es6-promise@^3.0.2, es6-promise@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.0.2.tgz#010d5858423a5f118979665f46486a95c6ee2bb6"
 
-es6-shim@~0.35.0:
+es6-shim@^0.35.1, es6-shim@~0.35.0:
   version "0.35.1"
   resolved "https://registry.yarnpkg.com/es6-shim/-/es6-shim-0.35.1.tgz#a23524009005b031ab4a352ac196dfdfd1144ab7"
 
@@ -5217,6 +5221,10 @@ wbuf@^1.1.0, wbuf@^1.4.0:
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.2.tgz#d697b99f1f59512df2751be42769c1580b5801fe"
   dependencies:
     minimalistic-assert "^1.0.0"
+
+weakmap@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/weakmap/-/weakmap-0.0.6.tgz#0c4fbde02e3b371f9222013fc6632a5c45419b29"
 
 webfontloader:
   version "1.6.26"

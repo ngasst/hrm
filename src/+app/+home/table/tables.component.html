@@ -12,8 +12,8 @@
                 {{table.name}}
             </td>
             <td class="table-fields">
-                <ul class="fields-list" *ngFor="let field of table.fields">
-                    <li class="field-item">{{field}}</li>
+                <ul class="fields-list">
+                    <li class="field-item" *ngFor="let field of table.fields" [hField]="highf">{{field}}</li>
                 </ul>
             </td>
             <td class="row-count">

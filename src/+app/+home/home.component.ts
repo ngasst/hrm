@@ -10,7 +10,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'home',
   styleUrls: [ './home.component.scss' ],
@@ -22,15 +22,21 @@ export class HomeComponent implements OnInit {
   fn = new FormControl();
   sort = new FormControl();
   empty = new FormControl();
+  highf: Observable<string>;
   constructor(public model: ModelService, private _ts: TableService) {
 
     // we need the data synchronously for the client to set the server response
-    // we create another method so we have more control for testing        
+    // we create another method so we have more control for testing   
+    this.highf = this.fn.valueChanges
+                  .debounceTime(1000)
+                  .filter(v => v.length > 3)
+                  .distinctUntilChanged()
+                  .map(v => v);     
   }
 
 
   ngOnInit() {
-    this.data = Observable
+    Observable
         .combineLatest(
             this.tn.valueChanges
               .debounceTime(400)
@@ -43,9 +49,8 @@ export class HomeComponent implements OnInit {
             this.sort.valueChanges,
             this.empty.valueChanges,
             (tn, fn, sorta, showEmpty) => Object.assign({}, {tname: tn, fname: fn, sorta: sorta, showEmpty: showEmpty}))
-        //.subscribe(r => console.log(r));
-        .switchMap(so => this._ts.search(so));
-
+        .switchMap(so => this._ts.search(so))
+        .subscribe(d => this.data = d);
         this.tn.setValue('');
         this.fn.setValue('');
         this.sort.setValue(true);

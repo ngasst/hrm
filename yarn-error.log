@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Applic\Ide\Netbeans\nodejs\node.exe C:\Applic\Ide\Netbeans\nodejs\node_modules\yarn\bin\yarn.js add @angularclass/bootloader
+  C:\Applic\Ide\Netbeans\nodejs\node.exe C:\Applic\Ide\Netbeans\nodejs\node_modules\yarn\bin\yarn.js add es6-shim
 
 PATH: 
   C:\Applic\Ide\Netbeans\git\mingw64\bin;C:\Applic\Ide\Netbeans\git\usr\bin;U:\bin;C:\ProgramData\Oracle\Java\javapath;C:\Applic\Oracle\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Enterprise Vault\EVClient;C:\ProgramData\Oracle\Java\javapath;C:\Applic\Oracle\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Enterprise Vault\EVClient;C:\Applic\Ide\Netbeans\Go\bin;C:\Applic\Ide\Netbeans\git\usr\bin;C:\Applic\Ide\Netbeans\gocode\bin;C:\Users\ndanyuzwe.g\Desktop\gcc-tdm\bin;C:\Applic\Ide\Netbeans\MinGW\bin;C:\Applic\Ide\Netbeans\nodejs;C:\Applic\Ide\Netbeans\npm;C:\Applic\Ide\Netbeans\oracleInstaClient\vc10;C:\Applic\Ide\Netbeans\oracleInstaClient;C:\Applic\Ide\Netbeans\vscode;C:\Applic\Ide\Netbeans\python27;C:\Applic\Ide\Netbeans\nodejs\node_modules\gml\build
@@ -97,6 +97,8 @@ npm manifest:
       "@angular/platform-server": "^2.2.2",
       "@angular/router": "^3.2.2",
       "@angular/upgrade": "^2.2.2",
+      "@angularclass/bootloader": "^1.0.1",
+      "@angularclass/idle-preload": "^1.0.4",
       "@ngtools/webpack": "^1.1.6",
       "@reactivex/rxjs": "5.0.0-rc.4",
       "angular2-platform-node": "^2.1.0-rc.1",
@@ -117,6 +119,7 @@ npm manifest:
       "style-loader": "^0.13.1",
       "ts-helpers": "^1.1.2",
       "ts-loader": "^1.2.2",
+      "weakmap": "^0.0.6",
       "webfontloader": "^1.6.26",
       "zone.js": "~0.6.26"
     }
@@ -200,6 +203,14 @@ Lockfile:
   "@angular/upgrade":
     version "2.2.2"
     resolved "https://registry.yarnpkg.com/@angular/upgrade/-/upgrade-2.2.2.tgz#4a5969cac8ef32149ed97dfbeaff0d6aaf2cfdf3"
+  
+  "@angularclass/bootloader@^1.0.1":
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/@angularclass/bootloader/-/bootloader-1.0.1.tgz#75de7cf3901b445900a419c2aeca44181d465060"
+  
+  "@angularclass/idle-preload@^1.0.4":
+    version "1.0.4"
+    resolved "https://registry.yarnpkg.com/@angularclass/idle-preload/-/idle-preload-1.0.4.tgz#41eeea532cc4998167c825f6dca62cb98f4b7028"
   
   "@ngtools/webpack":
     version "1.1.6"
@@ -5341,6 +5352,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.2.tgz#d697b99f1f59512df2751be42769c1580b5801fe"
     dependencies:
       minimalistic-assert "^1.0.0"
+  
+  weakmap@^0.0.6:
+    version "0.0.6"
+    resolved "https://registry.yarnpkg.com/weakmap/-/weakmap-0.0.6.tgz#0c4fbde02e3b371f9222013fc6632a5c45419b29"
   
   webfontloader:
     version "1.6.26"

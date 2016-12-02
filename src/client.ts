@@ -1,7 +1,7 @@
 // the polyfills must be the first thing imported
+require('weakmap');
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './__workaround.browser'; // temporary until 2.1.1 things are patched in Core
 
 // Angular 2
 import { enableProdMode } from '@angular/core';
@@ -31,12 +31,4 @@ export function main() {
 }
 
 // support async tag or hmr
-switch (document.readyState) {
-  case 'loading':
-    document.addEventListener('DOMContentLoaded', () => main());
-    break;
-  case 'interactive':
-  case 'complete':
-  default:
-    main();
-}
+bootloader(main);

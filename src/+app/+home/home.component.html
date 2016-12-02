@@ -1,5 +1,5 @@
 <div class="home">
-  <h4>Sandbox Tables <small>(displaying {{data.length | async}} tables)</small></h4>
+  <h4>Sandbox Tables <small>(displaying {{data?.length}} tables)</small></h4>
   <div class="search-container">
     <div class="search-table-name">
       <label for="">Search By Table Name</label>
@@ -21,7 +21,7 @@
   <div class="tables-container">
     <div class="tables-header"></div>
     <div class="tables-body">
-      <tables [data]="data | async"></tables>
+      <tables [data]="data" [highf]="highf | async"></tables>
     </div>
   </div>
 

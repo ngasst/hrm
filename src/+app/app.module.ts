@@ -12,14 +12,14 @@ import { AppComponent, XLargeDirective } from './app.component';
 
 
 @NgModule({
-  declarations: [ AppComponent, XLargeDirective ],
   imports: [
     SharedModule,
     HomeModule,
     AboutModule,
     TodoModule,
     AppRoutingModule
-  ]
+  ],
+  declarations: [ AppComponent, XLargeDirective ]
 })
 export class AppModule {
 }

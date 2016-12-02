@@ -10,45 +10,85 @@ export class MainHandler {
             if (err) {
                 res.error.server();
             } else {
-                let rdata = [];
-                //check if a table name was provided
-                term.tname.length > 0 ?
-                    rdata = data
-                            .filter(d => d.name.toLowerCase().indexOf(term.tname.toLowerCase()) !== -1)
-                            .filter((d, i) => i < 200) :
-                    rdata = data;
-                //check if a field name was provided
-                term.fname.length > 0 ?
-                    rdata = rdata
-                            .filter(d => d.nmae.toLowerCase().indexOf(term.fname.toLowerCase()) !== -1)
-                            .filter((d, i) => i < 200) :
-                    rdata = rdata;
-                //check if asked to sort alphabetically
-                term.sorta ?
-                    rdata = rdata
-                            .sort((a, b) => {
-                                if (a.name > b.name)
-                                    return -1;
-                                if (a.name < b.name)
-                                    return 1;
-                                return 0;
-                            }) :
-                    rdata = rdata
-                            .sort((a, b) => {
-                                if (a.count > b.count)
-                                    return -1;
-                                if (a.count < b.count)
-                                    return 1;
-                                return 0;
-                            });
-                //check if we should display empty tables
-                term.showEmpty ?
-                    rdata = rdata :
-                    rdata = rdata
-                            .filter(d => !d.isEmpty)
-                            .filter((d, i) => i < 200);
-                            
-                res.json(rdata);
+                Promise.resolve(data)
+                .then((data) => {
+                    return new Promise((resolve) => {
+                        //check if a table name was provided
+                        if (term.tname.length > 0) {
+                            let rdata = data
+                                    .filter(d => d.name.toLowerCase().indexOf(term.tname.toLowerCase()) !== -1)
+                                    .filter((d, i) => i < 200);
+                            resolve(rdata)
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                })
+                .then((data) => {
+                    return new Promise((resolve) => {
+                        //check if a field name was provided
+                        if (term.fname.length > 0) {
+                            let rdata = data
+                                    .filter(table => {
+                                        let bigs: string = table.fields.join(' ');
+                                        return bigs.toLowerCase().includes(term.fname.toLowerCase());
+                                    })
+                                    .filter((d, i) => i < 200);
+                            resolve(rdata);
+                        }
+                        resolve(data);
+
+                    });
+                })
+                .then(data => {
+                    return new Promise((resolve) => {
+                         //check if we should display empty tables
+                        if (term.showEmpty) {
+                            let rdata = data;
+                            resolve(rdata)
+                        } else {
+                            let rdata = data
+                                    .filter(d => !d.isEmpty);
+                            resolve(rdata);
+                        }
+                    });
+                })
+                .then(data => {
+                    //console.log(data.filter((d,i) => i<2));
+                    return new Promise((resolve) => {
+                        //check if asked to sort alphabetically
+                        if (term.sorta && data.length > 0) {
+                            let rdata = data
+                                    .sort((a, b) => {
+                                        if (a.name.toUpperCase() > b.name.toUpperCase())
+                                            return 1;
+                                        if (a.name.toUpperCase() < b.name.toUpperCase())
+                                            return -1;
+                                        return 0;
+                                    });
+                            resolve(rdata);
+                        } else {
+                            let rdata = data
+                                    .sort((a, b) => {
+                                        let counta: number = parseInt(a.count);
+                                        let countb: number = parseInt(b.count);
+                                        if (counta > countb)
+                                            return 1;
+                                        if (counta < countb)
+                                            return -1;
+                                        return 0;
+                                    });
+                            resolve(rdata);
+                        }
+                    });
+                })
+                .then(data => {
+                    return new Promise((resolve) => {
+                        let rdata = data.filter((d, i) => i < 200);
+                        resolve(rdata);
+                    });
+                })
+                .then(data => res.json(data));
             }
         });
     }
