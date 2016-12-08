@@ -33,14 +33,10 @@ function createConfig(isDebug) {
 		target: "node",
 		devtool: "source-map",
 		entry: {
-			index: "./index.ts",
-			test: "./test.ts",
-			"export-routes": "./src/exporters/export-routes",
-			"export-policies": "./src/exporters/export-policies",
-			"export-responses": "./src/exporters/export-responses"
+			index: "./server.ts"
 		},
 		output: {
-			path: path.join(__dirname, "build"),
+			path: path.join(__dirname),
 			filename: "[name].js"
 		},
 		resolve: {

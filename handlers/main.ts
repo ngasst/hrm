@@ -1,7 +1,7 @@
 import { Request, Response } from '../../reaserve';
 import { readJSON } from 'fs-extra';
 import { join } from 'path';
-import { SearchObject } from '../src/+app/shared/tables.service';
+import { SearchObject } from '../../hrm-client/src/app/sandbox/table/';
 export class MainHandler {
     static search(req: Request, res: Response):void {
         let p: string = join(process.cwd(), 'assets', 'sandbox.json');
@@ -10,6 +10,7 @@ export class MainHandler {
             if (err) {
                 res.error.server();
             } else {
+                console.log(term);
                 Promise.resolve(data)
                 .then((data) => {
                     return new Promise((resolve) => {
@@ -73,9 +74,9 @@ export class MainHandler {
                                         let counta: number = parseInt(a.count);
                                         let countb: number = parseInt(b.count);
                                         if (counta > countb)
-                                            return 1;
-                                        if (counta < countb)
                                             return -1;
+                                        if (counta < countb)
+                                            return 1;
                                         return 0;
                                     });
                             resolve(rdata);

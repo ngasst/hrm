@@ -42999,32 +42999,7 @@ __export(__webpack_require__(169));
 //# sourceMappingURL=node.js.map
 
 /***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var core_1 = __webpack_require__(0);
-var AboutComponent = (function () {
-    function AboutComponent(req) {
-        // console.log('req',  req)
-    }
-    return AboutComponent;
-}());
-AboutComponent = __decorate([
-    core_1.Component({
-        changeDetection: core_1.ChangeDetectionStrategy.Default,
-        encapsulation: core_1.ViewEncapsulation.Emulated,
-        selector: 'about',
-        template: 'About component'
-    }),
-    __param(0, core_1.Inject('req')),
-    __metadata("design:paramtypes", [Object])
-], AboutComponent);
-exports.AboutComponent = AboutComponent;
-
-
-/***/ },
+/* 263 */,
 /* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -43049,40 +43024,55 @@ var HomeComponent = (function () {
         this.sort = new forms_1.FormControl();
         this.empty = new forms_1.FormControl();
         // we need the data synchronously for the client to set the server response
-        // we create another method so we have more control for testing   
-        this.highf = this.fn.valueChanges
-            .debounceTime(1000)
-            .filter(function (v) { return v.length > 3; })
-            .distinctUntilChanged()
-            .map(function (v) { return v; });
+        // we create another method so we have more control for testing     
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        Rx_1.Observable
+        var filters$ = Rx_1.Observable
             .combineLatest(this.tn.valueChanges
             .debounceTime(400)
             .distinctUntilChanged(), this.fn.valueChanges
             .debounceTime(400)
-            .distinctUntilChanged(), this.sort.valueChanges, this.empty.valueChanges, function (tn, fn, sorta, showEmpty) { return Object.assign({}, { tname: tn, fname: fn, sorta: sorta, showEmpty: showEmpty }); })
+            .distinctUntilChanged(), this.sort.valueChanges, this.empty.valueChanges, function (tn, fn, sorta, showEmpty) { return Object.assign({}, { tname: tn, fname: fn, sorta: typeof sorta === 'string' ? sorta === 'true' : sorta, showEmpty: showEmpty }); });
+        //.switchMap(so => this._ts.search(so));
+        var entn$ = Rx_1.Observable.fromEvent(this.entn.nativeElement, 'keyup')
+            .filter(function (evt) { return evt.keyCode === 13; });
+        var enfn$ = Rx_1.Observable.fromEvent(this.enfn.nativeElement, 'keyup')
+            .filter(function (evt) { return evt.keyCode === 13; });
+        var clicks$ = Rx_1.Observable.merge(Rx_1.Observable.fromEvent(this.send.nativeElement, 'click'), entn$, enfn$);
+        clicks$.withLatestFrom(filters$)
+            .map(function (val) { return val[1]; })
             .switchMap(function (so) { return _this._ts.search(so); })
-            .subscribe(function (d) { return _this.data = d; });
+            .subscribe(function (data) { return _this.data = data; });
+        clicks$
+            .withLatestFrom(filters$)
+            .map(function (val) { return val[1]; })
+            .subscribe(function (so) {
+            _this.highf = so.fname;
+            _this.hight = so.tname;
+        });
         this.tn.setValue('');
         this.fn.setValue('');
         this.sort.setValue(true);
         this.empty.setValue(true);
     };
-    HomeComponent.prototype.sortAlphabetic = function (data) {
-    };
-    HomeComponent.prototype.sortByCount = function (data) {
-    };
-    HomeComponent.prototype.filterEmpty = function () {
-        return this.data.filter(function (dp) { return !dp.isEmpty; });
-    };
     return HomeComponent;
 }());
+__decorate([
+    core_1.ViewChild('send'),
+    __metadata("design:type", core_1.ElementRef)
+], HomeComponent.prototype, "send", void 0);
+__decorate([
+    core_1.ViewChild('entn'),
+    __metadata("design:type", core_1.ElementRef)
+], HomeComponent.prototype, "entn", void 0);
+__decorate([
+    core_1.ViewChild('enfn'),
+    __metadata("design:type", core_1.ElementRef)
+], HomeComponent.prototype, "enfn", void 0);
 HomeComponent = __decorate([
     core_1.Component({
-        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+        changeDetection: core_1.ChangeDetectionStrategy.Default,
         encapsulation: core_1.ViewEncapsulation.Emulated,
         selector: 'home',
         styles: [__webpack_require__(400)],
@@ -43170,8 +43160,8 @@ AppComponent = __decorate([
         changeDetection: core_1.ChangeDetectionStrategy.Default,
         encapsulation: core_1.ViewEncapsulation.Emulated,
         selector: 'app',
-        styles: ["\n    * { padding:0; margin:0; font-family: 'Droid Sans', sans-serif; }\n    #universal { text-align:center; font-weight:bold; padding:15px 0; }\n    nav { background:#333; min-height:40px; border-bottom:5px #777 solid; }\n    nav a { font-weight:bold; text-decoration:none; color:#fff; padding:20px; display:inline-block; }\n    nav a:hover { background:#555; }\n    .hero-universal { min-height:500px; display:block; padding:20px; background: url('/logo.jpg') no-repeat center center; }\n    .inner-hero { background: rgba(255, 255, 255, 0.75); border:5px #ccc solid; padding:25px; }\n    .router-link-active { background-color: #555; }\n    main { padding:20px 0; }\n    pre { font-size:12px; }\n  "],
-        template: "\n  <h3 id=\"universal\">HCMOWN Schema</h3>\n  <nav>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"home\">SBX</a>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"about\">Usage</a>\n    <!--<a routerLinkActive=\"router-link-active\" routerLink=\"todo\">Todo</a>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"lazy\">Lazy</a>-->\n  </nav>\n  <div class=\"hero-universal\">\n    <div class=\"inner-hero\">\n      <!--<div>\n        <span xLarge>Universal JavaScript {{ title }}!</span>\n      </div>\n\n      Two-way binding: <input type=\"text\" [value]=\"title\" (input)=\"title = $event.target.value\">\n\n      <br>\n      <br>\n\n      <strong>Router-outlet:</strong>-->\n      <main>\n        <router-outlet></router-outlet>\n      </main>\n    </div>\n  </div>\n  "
+        styles: ["\n    * { padding:0; margin:0; font-family: 'Droid Sans', sans-serif; }\n    #universal { text-align:center; font-weight:bold; padding:15px 0;}\n    nav { background:#444; min-height:40px; border-bottom:5px #777 solid; }\n    nav a { font-weight:bold; text-decoration:none; color:#fff; padding:20px; display:inline-block; }\n    nav a:hover { background:#555; }\n    .hero-universal { min-height:500px; display:block; padding:20px; background: url('/logo.jpg') no-repeat center center; height: 100%}\n    .inner-hero { background: rgba(255, 255, 255, 0.75); border:5px #ccc solid; padding:25px; }\n    .router-link-active { background-color: #555; }\n    main { padding:20px 0; }\n    pre { font-size:12px; }\n  "],
+        template: "\n  <h3 id=\"universal\">HCMOWN Schema</h3>\n  <nav>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"home\">SBX</a>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"usage\">Usage</a>\n    <!--<a routerLinkActive=\"router-link-active\" routerLink=\"todo\">Todo</a>\n    <a routerLinkActive=\"router-link-active\" routerLink=\"lazy\">Lazy</a>-->\n  </nav>\n  <div class=\"hero-universal\">\n    <div class=\"inner-hero\">\n      <main>\n        <router-outlet></router-outlet>\n      </main>\n    </div>\n  </div>\n  "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);
@@ -43591,7 +43581,7 @@ var core_1 = __webpack_require__(0);
 var forms_1 = __webpack_require__(146);
 var router_1 = __webpack_require__(37);
 var node_1 = __webpack_require__(170); // for AoT we need to manually split universal packages
-var app_module_1 = __webpack_require__(417);
+var app_module_1 = __webpack_require__(418);
 var shared_module_1 = __webpack_require__(48);
 var cache_service_1 = __webpack_require__(268);
 // Will be merged into @angular/platform-browser in a later release
@@ -43636,7 +43626,7 @@ MainModule = __decorate([
     core_1.NgModule({
         bootstrap: [app_module_1.AppComponent],
         imports: [
-            // MaterialModule.forRoot() should be included first
+            //MaterialModule.forRoot(),// should be included first
             node_1.UniversalModule,
             forms_1.FormsModule,
             router_1.RouterModule.forRoot([], { useHash: false }),
@@ -58646,25 +58636,25 @@ exports.UniversalModule = UniversalModule;
 /* 400 */
 /***/ function(module, exports) {
 
-module.exports = ".home .search-container {\n  display: flex;\n  align-content: space-around;\n  justify-content: space-around;\n  align-items: center;\n  width: 100%;\n  height: 100px; }\n  .home .search-container .search-table-name {\n    flex-direction: column; }\n  .home .search-container .search-field-name {\n    flex-direction: column; }\n"
+module.exports = ".home .search-container {\n  display: flex;\n  align-content: space-around;\n  justify-content: space-around;\n  align-items: center;\n  width: 100%;\n  height: 100px; }\n  .home .search-container .search-table-name {\n    flex-direction: column; }\n  .home .search-container .search-field-name {\n    flex-direction: column; }\n  .home .search-container input {\n    padding: 6px;\n    border: solid 2px solid #666;\n    min-height: 15px;\n    max-width: 120px; }\n  .home .search-container button {\n    background-color: white;\n    border: #666 2px solid;\n    color: deepskyblue;\n    font-weight: 700;\n    padding: 6px; }\n    .home .search-container button:hover {\n      background-color: #666;\n      color: #ddd;\n      cursor: pointer; }\n"
 
 /***/ },
 /* 401 */
 /***/ function(module, exports) {
 
-module.exports = "table.table-list {\n  width: 100%; }\n  table.table-list thead tr {\n    background-color: lightsteelblue;\n    font-size: 14pt;\n    padding: 10px 0;\n    color: #2a4465; }\n  table.table-list tbody tr {\n    vertical-align: top; }\n    table.table-list tbody tr tr:nth-child(odd) {\n      background-color: #f8fafc; }\n    table.table-list tbody tr tr:nth-child(even) {\n      background-color: white; }\n    table.table-list tbody tr li .field-highlight {\n      background-color: lightblue; }\n    table.table-list tbody tr li :nth-child(odd) {\n      background-color: #f8fafc; }\n    table.table-list tbody tr li :nth-child(even) {\n      background-color: white; }\n"
+module.exports = "table.table-list {\n  width: 100%; }\n  table.table-list thead tr {\n    background-color: lightsteelblue;\n    font-size: 14pt;\n    padding: 10px 0;\n    color: #2a4465; }\n  table.table-list tbody tr {\n    vertical-align: top; }\n    table.table-list tbody tr td.table-highlight {\n      background-color: greenyellow;\n      color: #666;\n      font-weight: 800; }\n    table.table-list tbody tr ul {\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      flex-direction: row;\n      flex-wrap: wrap;\n      flex-flow: row wrap;\n      align-content: flex-start; }\n      table.table-list tbody tr ul li {\n        list-style-type: none;\n        margin: 5px 5px; }\n        table.table-list tbody tr ul li:nth-child(odd) {\n          background-color: #f8fafc; }\n        table.table-list tbody tr ul li:nth-child(even) {\n          background-color: white; }\n      table.table-list tbody tr ul li.field-highlight {\n        background-color: deepskyblue;\n        color: #666;\n        font-weight: 800; }\n    table.table-list tbody tr:nth-child(odd) {\n      background-color: #f8fafc; }\n    table.table-list tbody tr:nth-child(even) {\n      background-color: white; }\n"
 
 /***/ },
 /* 402 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"home\">\n  <h4>Sandbox Tables <small>(displaying {{data?.length}} tables)</small></h4>\n  <div class=\"search-container\">\n    <div class=\"search-table-name\">\n      <label for=\"\">Search By Table Name</label>\n      <input type=\"text\" [formControl]=\"tn\">\n    </div>\n    <div class=\"search-field-name\">\n      <label for=\"\">Search By Field Name</label>\n      <input type=\"text\" [formControl]=\"fn\">\n    </div>\n    <div class=\"filter\">\n      <form action=\"\">\n        <input type=\"radio\" [formControl]=\"sort\" value=\"true\" [checked]=\"sort.value === true\"> Alphabetic Order\n        <input type=\"radio\" [formControl]=\"sort\" value=\"false\" [checked]=\"sort.value === false\"> Tables With Most Rows First\n        <input type=\"checkbox\" [formControl]=\"empty\" value=\"true\" [checked]=\"empty.value === true\"> Show Empty Tables\n      </form>\n    </div>\n  </div>\n  {{tdata|json}}\n  <div class=\"tables-container\">\n    <div class=\"tables-header\"></div>\n    <div class=\"tables-body\">\n      <tables [data]=\"data\" [highf]=\"highf | async\"></tables>\n    </div>\n  </div>\n\n</div>\n"
+module.exports = "<div class=\"home\">\n  <h4>Sandbox Tables <small>(displaying {{data?.length}} tables)</small></h4>\n  <div class=\"search-container\">\n    <div class=\"search-table-name\">\n      <label for=\"\">Search By Table Name</label>\n      <input type=\"text\" [formControl]=\"tn\" #entn>\n    </div>\n    <div class=\"search-field-name\">\n      <label for=\"\">Search By Field Name</label>\n      <input type=\"text\" [formControl]=\"fn\" #enfn>\n    </div>\n    <div class=\"filter\">\n        <input type=\"radio\" [formControl]=\"sort\" value=\"true\" [checked]=\"sort.value === true\"> <label>Alphabetic Order</label>\n        <input type=\"radio\" [formControl]=\"sort\" value=\"false\" [checked]=\"sort.value === false\"> <label>Most Rows</label>\n        <input type=\"checkbox\" [formControl]=\"empty\" value=\"true\" [checked]=\"empty.value === true\"> <label>Empty Tables</label>\n    </div>\n    <button #send>FILTER</button>\n  </div>\n  <div class=\"tables-container\">\n    <div class=\"tables-header\"></div>\n    <div class=\"tables-body\">\n      <tables [data]=\"data\" [highf]=\"highf\" [hight]=\"hight\"></tables>\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 403 */
 /***/ function(module, exports) {
 
-module.exports = "<table class=\"table-list\">\r\n    <thead>\r\n        <tr>\r\n            <td>Table Name</td>\r\n            <td>Table Fields</td>\r\n            <td>Table Row Count</td>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr class=\"tables-list-item\" *ngFor=\"let table of data\">\r\n            <td class=\"table-name\">\r\n                {{table.name}}\r\n            </td>\r\n            <td class=\"table-fields\">\r\n                <ul class=\"fields-list\">\r\n                    <li class=\"field-item\" *ngFor=\"let field of table.fields\" [hField]=\"highf\">{{field}}</li>\r\n                </ul>\r\n            </td>\r\n            <td class=\"row-count\">\r\n                {{table.count}}\r\n            </td>\r\n        </tr>\r\n    </tbody>\r\n</table>"
+module.exports = "<table class=\"table-list\">\r\n    <thead>\r\n        <tr>\r\n            <td>Table Name</td>\r\n            <td>Table Fields</td>\r\n            <td>Table Row Count</td>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr class=\"tables-list-item\" *ngFor=\"let table of data\">\r\n            <td class=\"table-name\" [hTable]=\"hight\">\r\n                {{table.name}}\r\n            </td>\r\n            <td class=\"table-fields\">\r\n                <ul class=\"fields-list\">\r\n                    <li class=\"field-item\" *ngFor=\"let field of table.fields\" [hField]=\"highf\">{{field}}</li>\r\n                </ul>\r\n            </td>\r\n            <td class=\"row-count\">\r\n                {{table.count | number:'2.0-0'}}\r\n            </td>\r\n        </tr>\r\n    </tbody>\r\n</table>"
 
 /***/ },
 /* 404 */
@@ -58685,6 +58675,7 @@ var MainHandler = (function () {
                 res.error.server();
             }
             else {
+                console.log(term);
                 Promise.resolve(data)
                     .then(function (data) {
                     return new Promise(function (resolve) {
@@ -58750,9 +58741,9 @@ var MainHandler = (function () {
                                 var counta = parseInt(a.count);
                                 var countb = parseInt(b.count);
                                 if (counta > countb)
-                                    return 1;
-                                if (counta < countb)
                                     return -1;
+                                if (counta < countb)
+                                    return 1;
                                 return 0;
                             });
                             resolve(rdata);
@@ -58835,63 +58826,8 @@ exports.routes = [
 
 
 /***/ },
-/* 408 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var core_1 = __webpack_require__(0);
-var router_1 = __webpack_require__(37);
-var about_component_1 = __webpack_require__(263);
-var AboutRoutingModule = (function () {
-    function AboutRoutingModule() {
-    }
-    return AboutRoutingModule;
-}());
-AboutRoutingModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            router_1.RouterModule.forChild([
-                { path: 'about', component: about_component_1.AboutComponent }
-            ])
-        ]
-    }),
-    __metadata("design:paramtypes", [])
-], AboutRoutingModule);
-exports.AboutRoutingModule = AboutRoutingModule;
-
-
-/***/ },
-/* 409 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-"use strict";
-var core_1 = __webpack_require__(0);
-var shared_module_1 = __webpack_require__(48);
-var about_component_1 = __webpack_require__(263);
-var about_routing_module_1 = __webpack_require__(408);
-var AboutModule = (function () {
-    function AboutModule() {
-    }
-    return AboutModule;
-}());
-AboutModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            shared_module_1.SharedModule,
-            about_routing_module_1.AboutRoutingModule
-        ],
-        declarations: [
-            about_component_1.AboutComponent
-        ]
-    }),
-    __metadata("design:paramtypes", [])
-], AboutModule);
-exports.AboutModule = AboutModule;
-
-
-/***/ },
+/* 408 */,
+/* 409 */,
 /* 410 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58927,8 +58863,9 @@ exports.HomeRoutingModule = HomeRoutingModule;
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(48);
 var home_component_1 = __webpack_require__(264);
-var tables_component_1 = __webpack_require__(412);
-var high_field_directive_1 = __webpack_require__(448);
+var tables_component_1 = __webpack_require__(414);
+var high_field_directive_1 = __webpack_require__(412);
+var high_table_directive_1 = __webpack_require__(413);
 var home_routing_module_1 = __webpack_require__(410);
 var HomeModule = (function () {
     function HomeModule() {
@@ -58944,7 +58881,8 @@ HomeModule = __decorate([
         declarations: [
             home_component_1.HomeComponent,
             tables_component_1.TablesComponent,
-            high_field_directive_1.FieldHighlightDirective
+            high_field_directive_1.FieldHighlightDirective,
+            high_table_directive_1.TableHighlightDirective
         ]
     }),
     __metadata("design:paramtypes", [])
@@ -58954,6 +58892,74 @@ exports.HomeModule = HomeModule;
 
 /***/ },
 /* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__(0);
+var FieldHighlightDirective = (function () {
+    function FieldHighlightDirective(el, renderer) {
+        this.el = el;
+        this.renderer = renderer;
+    }
+    FieldHighlightDirective.prototype.ngAfterViewInit = function () {
+        var text = this.el.nativeElement.innerText;
+        this.el.nativeElement.className = this.el.nativeElement.className.split(' ').filter(function (c) { return !c.includes('field-highlight'); }).join(' ');
+        if (this.hField !== '' && text.toLowerCase().includes(this.hField.toLowerCase())) {
+            this.renderer.setElementClass(this.el.nativeElement, 'field-highlight', true);
+        }
+    };
+    return FieldHighlightDirective;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], FieldHighlightDirective.prototype, "hField", void 0);
+FieldHighlightDirective = __decorate([
+    core_1.Directive({
+        selector: '[hField]',
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef, core_1.Renderer])
+], FieldHighlightDirective);
+exports.FieldHighlightDirective = FieldHighlightDirective;
+
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__(0);
+var TableHighlightDirective = (function () {
+    function TableHighlightDirective(el, renderer) {
+        this.el = el;
+        this.renderer = renderer;
+    }
+    TableHighlightDirective.prototype.ngAfterViewInit = function () {
+        var text = this.el.nativeElement.innerText;
+        this.el.nativeElement.className = this.el.nativeElement.className.split(' ').filter(function (c) { return !c.includes('table-highlight'); }).join(' ');
+        if (this.hTable !== '' && text.toLowerCase().includes(this.hTable.toLowerCase())) {
+            this.renderer.setElementClass(this.el.nativeElement, 'table-highlight', true);
+        }
+    };
+    return TableHighlightDirective;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], TableHighlightDirective.prototype, "hTable", void 0);
+TableHighlightDirective = __decorate([
+    core_1.Directive({
+        selector: '[hTable]',
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef, core_1.Renderer])
+], TableHighlightDirective);
+exports.TableHighlightDirective = TableHighlightDirective;
+
+
+/***/ },
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58977,9 +58983,13 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", Object)
 ], TablesComponent.prototype, "highf", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], TablesComponent.prototype, "hight", void 0);
 TablesComponent = __decorate([
     core_1.Component({
-        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+        changeDetection: core_1.ChangeDetectionStrategy.Default,
         encapsulation: core_1.ViewEncapsulation.Emulated,
         selector: 'tables',
         template: __webpack_require__(403),
@@ -58991,8 +59001,7 @@ exports.TablesComponent = TablesComponent;
 
 
 /***/ },
-/* 413 */,
-/* 414 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59019,7 +59028,7 @@ exports.TodoRoutingModule = TodoRoutingModule;
 
 
 /***/ },
-/* 415 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59027,7 +59036,7 @@ exports.TodoRoutingModule = TodoRoutingModule;
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(48);
 var todo_component_1 = __webpack_require__(265);
-var todo_routing_module_1 = __webpack_require__(414);
+var todo_routing_module_1 = __webpack_require__(415);
 var TodoModule = (function () {
     function TodoModule() {
     }
@@ -59049,7 +59058,7 @@ exports.TodoModule = TodoModule;
 
 
 /***/ },
-/* 416 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59081,17 +59090,17 @@ exports.AppRoutingModule = AppRoutingModule;
 
 
 /***/ },
-/* 417 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
 var home_module_1 = __webpack_require__(411);
-var about_module_1 = __webpack_require__(409);
-var todo_module_1 = __webpack_require__(415);
+var usage_module_1 = __webpack_require__(451);
+var todo_module_1 = __webpack_require__(416);
 var shared_module_1 = __webpack_require__(48);
-var app_routing_module_1 = __webpack_require__(416);
+var app_routing_module_1 = __webpack_require__(417);
 var app_component_1 = __webpack_require__(266);
 var AppModule = (function () {
     function AppModule() {
@@ -59103,11 +59112,14 @@ AppModule = __decorate([
         imports: [
             shared_module_1.SharedModule,
             home_module_1.HomeModule,
-            about_module_1.AboutModule,
+            usage_module_1.UsageModule,
             todo_module_1.TodoModule,
             app_routing_module_1.AppRoutingModule
         ],
-        declarations: [app_component_1.AppComponent, app_component_1.XLargeDirective]
+        declarations: [
+            app_component_1.AppComponent,
+            app_component_1.XLargeDirective
+        ]
     }),
     __metadata("design:paramtypes", [])
 ], AppModule);
@@ -59117,7 +59129,6 @@ exports.AppComponent = app_component_2.AppComponent;
 
 
 /***/ },
-/* 418 */,
 /* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -59696,34 +59707,86 @@ routes.forEach(route => {
 "use strict";
 "use strict";
 var core_1 = __webpack_require__(0);
-var FieldHighlightDirective = (function () {
-    function FieldHighlightDirective(el, renderer) {
-        this.el = el;
-        this.renderer = renderer;
-        //   
+var UsageComponent = (function () {
+    function UsageComponent(req) {
+        // console.log('req',  req)
     }
-    FieldHighlightDirective.prototype.ngAfterContentChecked = function () {
-        console.log(this.el.nativeElement);
-        console.log(this.el.nativeElement.innerText);
-    };
-    FieldHighlightDirective.prototype.ngOnInit = function () {
-        /*if(this.el.nativeElement.innerHtml.toLowerCase().includes(this.hField.toLowerCase()) {
-            this.renderer.setElementClass(this.el.nativeElement, 'field-highlight', true);
-        }*/
-    };
-    return FieldHighlightDirective;
+    return UsageComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], FieldHighlightDirective.prototype, "hField", void 0);
-FieldHighlightDirective = __decorate([
-    core_1.Directive({
-        selector: '[hField]',
+UsageComponent = __decorate([
+    core_1.Component({
+        changeDetection: core_1.ChangeDetectionStrategy.Default,
+        encapsulation: core_1.ViewEncapsulation.Emulated,
+        selector: 'usage',
+        template: __webpack_require__(449)
     }),
-    __metadata("design:paramtypes", [core_1.ElementRef, core_1.Renderer])
-], FieldHighlightDirective);
-exports.FieldHighlightDirective = FieldHighlightDirective;
+    __param(0, core_1.Inject('req')),
+    __metadata("design:paramtypes", [Object])
+], UsageComponent);
+exports.UsageComponent = UsageComponent;
+
+
+/***/ },
+/* 449 */
+/***/ function(module, exports) {
+
+module.exports = "<h2>How to Use This Tool</h2>\r\n"
+
+/***/ },
+/* 450 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__(0);
+var router_1 = __webpack_require__(37);
+var usage_component_1 = __webpack_require__(448);
+var UsageRoutingModule = (function () {
+    function UsageRoutingModule() {
+    }
+    return UsageRoutingModule;
+}());
+UsageRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forChild([
+                { path: 'usage', component: usage_component_1.UsageComponent }
+            ])
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], UsageRoutingModule);
+exports.UsageRoutingModule = UsageRoutingModule;
+
+
+/***/ },
+/* 451 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__(0);
+var shared_module_1 = __webpack_require__(48);
+var usage_component_1 = __webpack_require__(448);
+var usage_routing_module_1 = __webpack_require__(450);
+var UsageModule = (function () {
+    function UsageModule() {
+    }
+    return UsageModule;
+}());
+UsageModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            shared_module_1.SharedModule,
+            usage_routing_module_1.UsageRoutingModule
+        ],
+        declarations: [
+            usage_component_1.UsageComponent
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], UsageModule);
+exports.UsageModule = UsageModule;
 
 
 /***/ }
