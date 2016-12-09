@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Applic\Ide\Netbeans\nodejs\node.exe C:\Applic\Ide\Netbeans\nodejs\node_modules\yarn\bin\yarn.js add @angular/material
+  C:\Applic\Ide\Netbeans\nodejs\node.exe C:\Applic\Ide\Netbeans\nodejs\node_modules\yarn\bin\yarn.js remove @ngrx/core @ngrx/store
 
 PATH: 
   C:\Applic\Ide\Netbeans\git\mingw64\bin;C:\Applic\Ide\Netbeans\git\usr\bin;U:\bin;C:\ProgramData\Oracle\Java\javapath;C:\Applic\Oracle\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Enterprise Vault\EVClient;C:\ProgramData\Oracle\Java\javapath;C:\Applic\Oracle\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Enterprise Vault\EVClient;C:\Applic\Ide\Netbeans\Go\bin;C:\Applic\Ide\Netbeans\git\usr\bin;C:\Applic\Ide\Netbeans\gocode\bin;C:\Users\ndanyuzwe.g\Desktop\gcc-tdm\bin;C:\Applic\Ide\Netbeans\MinGW\bin;C:\Applic\Ide\Netbeans\nodejs;C:\Applic\Ide\Netbeans\npm;C:\Applic\Ide\Netbeans\oracleInstaClient\vc10;C:\Applic\Ide\Netbeans\oracleInstaClient;C:\Applic\Ide\Netbeans\vscode;C:\Applic\Ide\Netbeans\python27;C:\Applic\Ide\Netbeans\nodejs\node_modules\gml\build
@@ -26,27 +26,7 @@ npm manifest:
       "bump:minor:pub": "node ./node_modules/node-bumper/build/index minor --git --npm",
       "bump:major": "node ./node_modules/node-bumper/build/index major --git",
       "bump:major:pub": "node ./node_modules/node-bumper/build/index major --git --npm",
-      "tsnode": "node ./node_modules/ts-node/dist/index",
-      "watch": "webpack --watch",
-      "watch:dev": "npm run server & npm run watch",
-      "clean:dist": "rimraf dist",
-      "clean:ngc": "rimraf **/*.ngfactory.ts **/*.css.shim.ts",
-      "prebuild": "npm run clean:dist",
-      "build": "webpack  --progress",
-      "build:prod:ngc": "npm run clean:ngc && npm run ngc && npm run clean:dist && npm run build:prod",
-      "build:prod:ngc:json": "npm run clean:ngc && npm run ngc && npm run clean:dist && npm run build:prod:json",
-      "build:prod": "webpack --config webpack.prod.config.ts",
-      "build:prod:json": "webpack --config webpack.prod.config.ts --json | webpack-bundle-size-analyzer",
-      "ngc": "ngc -p tsconfig.aot.json",
-      "prestart": "npm run build",
-      "server": "nodemon dist/server/index.js",
-      "debug:server": "node-nightly --inspect --debug-brk dist/server/index.js",
-      "start": "npm run server",
-      "debug:start": "npm run build && npm run debug:server",
-      "predebug": "npm run build",
-      "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
-      "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
-      "debug": "node --debug-brk dist/server/index.js"
+      "nodemon": "node ./node_modules/nodemon/bin/nodemon ./index.js"
     },
     "author": "Gaston Ndanyuzwe <gaston.ndanyuzwe@infinteacacia.com>",
     "license": "ISC",
@@ -92,6 +72,7 @@ npm manifest:
       "@angular/core": "^2.2.2",
       "@angular/forms": "^2.2.2",
       "@angular/http": "^2.2.2",
+      "@angular/material": "^2.0.0-alpha.10",
       "@angular/platform-browser": "^2.2.2",
       "@angular/platform-browser-dynamic": "^2.2.2",
       "@angular/platform-server": "^2.2.2",
@@ -171,6 +152,12 @@ Lockfile:
     version "2.2.2"
     resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.2.2.tgz#900c2879c135366d81a95a322327717e08b156e0"
   
+  "@angular/material@^2.0.0-alpha.10":
+    version "2.0.0-alpha.10"
+    resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-alpha.10.tgz#c9f28b52aa9d0f71670e6ce163e22052ef63fcc2"
+    dependencies:
+      "@types/hammerjs" "^2.0.30"
+  
   "@angular/platform-browser":
     version "2.2.2"
     resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-2.2.2.tgz#45a79982f268b172b48972438cff491345e8817a"
@@ -213,6 +200,14 @@ Lockfile:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/@angularclass/idle-preload/-/idle-preload-1.0.4.tgz#41eeea532cc4998167c825f6dca62cb98f4b7028"
   
+  "@ngrx/core@^1.2.0":
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+  
+  "@ngrx/store@^2.2.1":
+    version "2.2.1"
+    resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.1.tgz#316ec1e43aa5a0166e5e6e1aa2c34a4049386510"
+  
   "@ngtools/webpack":
     version "1.1.6"
     resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.1.6.tgz#bf28a7e7e4e9e9f23a2225985ac1a658e0653ac8"
@@ -254,7 +249,7 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
-  "@types/hammerjs":
+  "@types/hammerjs", "@types/hammerjs@^2.0.30":
     version "2.0.33"
     resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.33.tgz#45f57352474181425bb4b65f7313a60426d54bab"
   
@@ -5657,5 +5652,5 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.6.26.tgz#067c13b8b80223a89b62e9dc82680f09762c4636"
 
 Trace: 
-  Error: ENOENT: no such file or directory, open 'C:\Users\ndanyuzwe.g\Desktop\nodecode\hrm\node_modules\@types\chalk\package.json'
+  Error: ENOENT: no such file or directory, open 'C:\Users\ndanyuzwe.g\Desktop\nodecode\hrm\node_modules\@types\chalk\index.d.ts'
       at Error (native)
