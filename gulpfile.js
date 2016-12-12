@@ -41,6 +41,14 @@ gulp.task("dev:live", gulp
 			devServerWatch, 
 			devServerReloadTest)));
 
+gulp.task("prod:live", gulp
+	.series(
+		"clean", 
+		prodServerBuild, 
+		gulp.parallel(
+			prodServerWatch, 
+			prodServerReloadTest)));
+
 gulp.task("prod:server", gulp.series("clean:server", prodServerBuild));
 gulp.task("prod", gulp.series("clean", gulp.parallel(prodServerBuild)));
 
@@ -89,6 +97,19 @@ function devServerReloadTest() {
 		}
 	});
 }
+
+function prodServerReloadTest() {
+	return $.nodemon({
+		script: "./build/index.js",
+		watch: "./build",
+		env: {
+			"NODE_ENV": "production",
+			"USE_WEBPACK": "true"
+		}
+	});
+}
+
+
 function prodServerBuild(callback) {
 	prodServerWebpack.run((error, stats) => {
 		outputWebpack("Prod:Server", error, stats);

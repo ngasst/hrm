@@ -10,7 +10,7 @@
     "bump:minor:pub": "node ./node_modules/node-bumper/build/index minor --git --npm",
     "bump:major": "node ./node_modules/node-bumper/build/index major --git",
     "bump:major:pub": "node ./node_modules/node-bumper/build/index major --git --npm",
-    "nodemon": "node ./node_modules/nodemon/bin/nodemon ./index.js"
+    "nodemon": "node ./node_modules/nodemon/bin/nodemon ./build/index.js"
   },
   "author": "Gaston Ndanyuzwe <gaston.ndanyuzwe@infinteacacia.com>",
   "license": "ISC",

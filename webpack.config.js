@@ -36,7 +36,7 @@ function createConfig(isDebug) {
 			index: "./server.ts"
 		},
 		output: {
-			path: path.join(__dirname),
+			path: path.join(__dirname, 'build'),
 			filename: "[name].js"
 		},
 		resolve: {

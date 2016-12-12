@@ -5,12 +5,17 @@ import { SearchObject } from '../../hrm-client/src/app/sandbox/table/';
 export class MainHandler {
     static search(req: Request, res: Response):void {
         let p: string = join(process.cwd(), 'assets', 'sandbox.json');
-        let term: SearchObject = req.body;
+        let term: SearchObject = Object.assign(req.params, {
+            tname: req.params.tname === 'empty' ? '' : req.params.tname,
+            fname: req.params.fname === 'empty' ? '' : req.params.fname,
+            isEmpty: req.params.empty === 'true' ? true : false,
+            sorta: req.params.sorta === 'true' ? true : false});
+        console.log(term);
         readJSON(p, (err, data: any[]) => {
             if (err) {
+                console.log(err);
                 res.error.server();
             } else {
-                console.log(term);
                 Promise.resolve(data)
                 .then((data) => {
                     return new Promise((resolve) => {
