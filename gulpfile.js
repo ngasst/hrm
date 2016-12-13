@@ -8,21 +8,32 @@ const $ = require("gulp-load-plugins")();
 
 // --------------------------------
 // Public Tasks
-gulp.task("clean:server", cb => rimraf("./build", cb));
+gulp.task("clean:server", cb => {
+	rimraf("./build", cb);
+	rimraf("./java", cb);
+});
+
 gulp.task("clean", gulp.parallel("clean:server"));
+
+gulp.task("copy:java", () => {
+	gulp.src("c:/users/ndanyuzwe.g/desktop/javacode/hrmquerier/target/**/*.jar")
+		.pipe(gulp.dest("./java"));
+});
 
 gulp.task("dev:server", gulp.series("clean:server", devServerBuild));
 gulp.task("dev:watch", gulp
 	.series(
 		"clean",
 		devServerBuild,
-		devServerWatch
+		devServerWatch,
+		"copy:java"
 	));
 gulp.task("prod:watch", gulp
 	.series(
 		"clean",
 		prodServerBuild,
-		prodServerWatch
+		prodServerWatch,
+		"copy:java"
 	));
 
 gulp.task("dev", gulp
@@ -31,7 +42,8 @@ gulp.task("dev", gulp
 		devServerBuild, 
 		gulp.parallel(
 			devServerWatch, 
-			devServerReload)));
+			devServerReload,
+			"copy:java")));
 
 gulp.task("dev:live", gulp
 	.series(
@@ -39,7 +51,8 @@ gulp.task("dev:live", gulp
 		devServerBuild, 
 		gulp.parallel(
 			devServerWatch, 
-			devServerReloadTest)));
+			devServerReloadTest,
+			"copy:java")));
 
 gulp.task("prod:live", gulp
 	.series(
@@ -47,7 +60,8 @@ gulp.task("prod:live", gulp
 		prodServerBuild, 
 		gulp.parallel(
 			prodServerWatch, 
-			prodServerReloadTest)));
+			prodServerReloadTest,
+			"copy:java")));
 
 gulp.task("prod:server", gulp.series("clean:server", prodServerBuild));
 gulp.task("prod", gulp.series("clean", gulp.parallel(prodServerBuild)));

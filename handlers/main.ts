@@ -1,7 +1,7 @@
 import { Request, Response } from '../../reaserve';
 import { readJSON } from 'fs-extra';
 import { join } from 'path';
-import { SearchObject } from '../../hrm-client/src/app/sandbox/table/';
+import { SearchObject } from '../../hrm-client/src/app/models';
 export class MainHandler {
     static search(req: Request, res: Response):void {
         let p: string = join(process.cwd(), 'assets', 'sandbox.json');
